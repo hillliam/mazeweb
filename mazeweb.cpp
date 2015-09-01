@@ -1,5 +1,5 @@
 // mazeweb.cpp : Defines the entry point for the console application.
-//
+// Copyright Liam hill 2013
 
 #include "stdafx.h"
 #include <stdlib.h>

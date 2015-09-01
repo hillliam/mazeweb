@@ -1,3 +1,4 @@
+// Copyright Liam hill 2013
 #pragma once
 #include <stdio.h>
 #include <SDL/SDL.h>
