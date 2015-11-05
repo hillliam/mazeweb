@@ -3,20 +3,25 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <title>Mazeweb - Emscripten-Generated Code</title>
+    <title>Emscripten-Generated Code</title>
+  <style type="text/css">
+  </style>
   </head>
   <body>
-  <div class="title" id="title"><h1>Mazeweb</div>
   <div class="spinner" id='spinner'></div>
     <div class="emscripten" id="status">Downloading...</div>
     <div class="emscripten">
       <progress value="0" max="100" id="progress" hidden=1></progress>
     </div>
 
-    
+
     <div class="editmode" id="editmode" style="margin-left: 10px; margin-top: 30px; margin-bottom: 10px; visibility: hidden;"><span>
     <input type="checkbox" id="pointerLock" checked>
 Lock/hide mouse pointer
+<input type="checkbox" name="player" value="true">
+player start
+<input type="checkbox" name="end" value="true">
+exit location
 <input type="radio" name="mapset" value="1">
 north
 <input type="radio" name="mapset" value="2">
@@ -39,7 +44,7 @@ northeast
 northwest</span></div>
     <div class="buttions"><span>
     <input type="button" value="random start" onclick="_startall()">
-    <input type="button" value="load start" onclick="_loadtext();">
+    <input type="file" id="file" value="load start" onclick="">
     <style>
       body {
 	font-family: arial;
@@ -52,9 +57,9 @@ northwest</span></div>
 	height: auto;
 	width: auto;
       }
-      .title{}
+
       .emscripten { padding-right: 0; margin-left: auto; margin-right: auto; display: block; }
-      div.emscripten { text-align: center; }      
+      div.emscripten { text-align: center; }
       div.emscripten_border {
 	border: 1px solid black;
 	margin-left: 0px;
@@ -86,7 +91,7 @@ northwest</span></div>
         border-right: 5px solid rgb(235, 235, 235);
         border-bottom: 5px solid rgb(235, 235, 235);
         border-top: 5px solid rgb(120, 120, 120);
-        
+
         border-radius: 100%;
         background-color: rgb(189, 215, 46);
       }
@@ -148,7 +153,6 @@ northwest</span></div>
 	display: inline-block;
 }
     </style>
-    <input type="button" value="preset 1" onclick="_preset1()">
     <input type="button" value="completible random" onclick="_crandomstart();">
     <input type="button" value="editmode" onclick="editstart();">
     <input type="button" value="clear the map" onclick="_clearmap();">
@@ -158,7 +162,24 @@ northwest</span></div>
       <canvas class="emscripten" id="canvas" oncontextmenu="event.preventDefault()"></canvas>
     </div>
     <span id='controls'>    </span> <script type='text/javascript'>
-	function editstart()
+function readFile(evt) {
+    //Retrieve the first (and only!) File from the FileList object
+    var f = evt.target.files[0]; 
+
+    if (f) {
+      var r = new FileReader();
+      r.onload = function(e) { 
+	var contents = e.target.result;
+        _loadfile(contents);
+      }
+      r.readAsText(f);
+    } else { 
+      alert("Failed to load file");
+    }
+  }
+
+  document.getElementById('file').addEventListener('change', readFile, false);
+        function editstart()
 	{
 		var showme = document.getElementById("editmode");
 		showme.style.visibility = "visible";
@@ -220,8 +241,8 @@ northwest</span></div>
    id="Layer_1"
    x="0px"
    y="0px"
-   width="296px" 
-   height="78px" 
+   width="296px"
+   height="78px"
    viewBox="420 120 100 170"
    enable-background="new 0 0 900 400"
    xml:space="preserve"
