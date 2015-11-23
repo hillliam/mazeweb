@@ -4,67 +4,16 @@
     <meta charset="utf-8">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <title>Emscripten-Generated Code</title>
-  <style type="text/css">
-  </style>
-  </head>
-  <body>
-  <div class="spinner" id='spinner'></div>
-    <div class="emscripten" id="status">Downloading...</div>
-    <div class="emscripten">
-      <progress value="0" max="100" id="progress" hidden=1></progress>
-    </div>
-
-
-    <div class="editmode" id="editmode" style="margin-left: 10px; margin-top: 30px; margin-bottom: 10px; visibility: hidden;"><span>
-    <input type="checkbox" id="pointerLock" checked>
-Lock/hide mouse pointer
-<input type="checkbox" name="player" value="true">
-player start
-<input type="checkbox" name="end" value="true">
-exit location
-<input type="radio" name="mapset" value="1">
-north
-<input type="radio" name="mapset" value="2">
-east
-<input type="radio" name="mapset" value="3">
-all
-<input type="radio" name="mapset" value="4">
-eastwastnorth
-<input type="radio" name="mapset" value="5">
-eastwestsouth
-<input type="radio" name="mapset" value="6">
-noenterable
-<input type="radio" name="mapset" value="7">
-southeast
-<input type="radio" name="mapset" value="8">
-southwest
-<input type="radio" name="mapset" value="9">
-northeast
-<input type="radio" name="mapset" value="10">
-northwest</span></div>
-    <div class="buttions"><span>
-    <input type="button" value="random start" onclick="_startall()">
-    <input type="file" id="file" value="load start" onclick="">
-    <style>
+  <style>
       body {
-	font-family: arial;
-	margin: 0;
-	padding-top: 0%;
-	padding-right: 0%;
-	padding-left: 0%;
-	padding-bottom: 0%;
-	position: absolute;
-	height: auto;
-	width: auto;
+        font-family: arial;
+        margin: 0;
+        padding: none;
       }
 
       .emscripten { padding-right: 0; margin-left: auto; margin-right: auto; display: block; }
-      div.emscripten { text-align: center; }
-      div.emscripten_border {
-	border: 1px solid black;
-	margin-left: 0px;
-	margin-top: 10px;
-}
+      div.emscripten { text-align: center; }      
+      div.emscripten_border { border: 1px solid black; }
       /* the canvas *must not* have any border or padding, or mouse coords will be wrong */
       canvas.emscripten { border: 0px none; }
 
@@ -91,7 +40,7 @@ northwest</span></div>
         border-right: 5px solid rgb(235, 235, 235);
         border-bottom: 5px solid rgb(235, 235, 235);
         border-top: 5px solid rgb(120, 120, 120);
-
+        
         border-radius: 100%;
         background-color: rgb(189, 215, 46);
       }
@@ -128,12 +77,11 @@ northwest</span></div>
       }
 
       #controls {
-	display: inline-block;
-	float: right;
-	vertical-align: top;
-	margin-top: 30px;
-	margin-right: 20px;
-	margin-left: 20px;
+        display: inline-block;
+        float: right;
+        vertical-align: top;
+        margin-top: 30px;
+        margin-right: 20px;
       }
 
       #output {
@@ -147,21 +95,96 @@ northwest</span></div>
         font-family: 'Lucida Console', Monaco, monospace;
         outline: none;
       }
-    #logo {
-	padding-left: 30%;
-	padding-top: 1%;
-	display: inline-block;
+	  @media screen and (min-width: 768px) {
+  .dropdown:hover .dropdown-menu, .btn-group:hover .dropdown-menu{
+		display: block;
+	}
+	.dropdown-menu{
+		margin-top: 0;
+	}
+	.dropdown-toggle{
+		margin-bottom: 2px;
+	}
+	.navbar .dropdown-toggle, .nav-tabs .dropdown-toggle{
+		margin-bottom: 0;
+	}
 }
     </style>
+        <!-- Bootstrap -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-switch/3.3.2/css/bootstrap3/bootstrap-switch.min.css">
+
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css" integrity="sha384-aUGj/X2zp5rLCbBxumKTCw2Z50WgIr1vs/PFN4praOTvYXWlVyh2UtNUU0KAUhAX" crossorigin="anonymous">
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js" integrity="sha512-K1qjQ+NcF2TYO/eI3M6v8EiNYZfA95pQumfvcVrTHtwQVDG+aHRqLi/ETn2uB+1JqwYqVG3LIvdm9lj6imS/pQ==" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-switch/3.3.2/js/bootstrap-switch.min.js"></script>
+
+  </head>
+  <body>
+  <nav style="margin-left:auto;margin-right:auto;">
+  <div class="jumbotron text-center clearfix">
+     <div class="container">
+    	<a href="http://hillliam.github.io/" class="btn btn-lg btn-primary">home</a>
+    	<a href="http://hillliam.github.io/projects.html" class="btn btn-lg btn-info dropdown-toggle">projects</a>
+        <ul class="dropdown-menu" >
+        <li> 
+        <a href="http://hillliam.github.io/mazeweb" class="btn btn-lg btn-success">Mazeweb</a> 
+        </li>
+        <li>
+        <a href="http://hillliam.github.io/zombiegame" class="btn btn-lg btn-warning">Zombiegame</a>
+        </li>
+        </ul>
+    </div>
+  </div>
+  </nav>
+  <div class="spinner text-center" id="spinner"></div>
+    <div class="emscripten" id="status">Downloading...</div>
+    <div class="emscripten">
+      <progress value="0" max="100" id="progress" hidden=1></progress>
+    </div>
+
+
+    <div class="editmode bg-info" id="editmode" style="margin-left: 10px; margin-top: 30px; margin-bottom: 10px; visibility: hidden;">
+    <span>
+<input type="checkbox" id="pointerLock" checked>Lock/hide mouse pointer
+<input type="checkbox" name="player" value="true"> player start
+<input type="checkbox" name="end" value="true">exit location
+<input type="radio" name="mapset" value="1">north
+<input type="radio" name="mapset" value="2">east
+<input type="radio" name="mapset" value="3">all
+<input type="radio" name="mapset" value="4">eastwastnorth
+<input type="radio" name="mapset" value="5">eastwestsouth
+<input type="radio" name="mapset" value="6">noenterable
+<input type="radio" name="mapset" value="7">southeast
+<input type="radio" name="mapset" value="8">southwest
+<input type="radio" name="mapset" value="9">northeast
+<input type="radio" name="mapset" value="10">northwest
+</span>
+</div>
+    <div class="buttions"><span>
+    <input type="button" value="random start" onclick="_startall()">
+    <input type="file" id="file" value="load start" onclick="">  
     <input type="button" value="completible random" onclick="_crandomstart();">
     <input type="button" value="editmode" onclick="editstart();">
     <input type="button" value="clear the map" onclick="_clearmap();">
-    <input type="button" value="save the map" onclick="_savefile();"></div>
-  </span>
+    <input type="button" value="save the map" onclick="_savefile();">
+  </span></div>
     <div class="emscripten_border">
       <canvas class="emscripten" id="canvas" oncontextmenu="event.preventDefault()"></canvas>
     </div>
-    <span id='controls'>    </span> <script type='text/javascript'>
+    <span id="controls">    </span>
+     <script type="text/javascript">
+	 	$(document).ready(function(){
+	$(".dropdown, .btn-group").hover(function(){
+		var dropdownMenu = $(this).children(".dropdown-menu");
+		if(dropdownMenu.is(":visible")){
+			dropdownMenu.toggleClass("open");
+		}
+	});
+});	
 function readFile(evt) {
     //Retrieve the first (and only!) File from the FileList object
     var f = evt.target.files[0]; 
