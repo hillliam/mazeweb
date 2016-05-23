@@ -5,7 +5,14 @@ Liam Hill
 
 how to build
 ------------
+
+debug
+======
 emcc maze.cpp mazeweb.cpp -o mazeweb.js -g4 -s NO_EXIT_RUNTIME=1
+
+release
+=======
+emcc maze.cpp mazeweb.cpp -o mazeweb.js -O2 -s NO_EXIT_RUNTIME=1
 
 improvements
 ------------
