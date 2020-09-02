@@ -12,24 +12,15 @@ on:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  checkout_and_setup:
-    name: 'Setup'
-    # The type of runner that the job will run on
+  debug_build:
+    name: 'Debug Build'
     runs-on: ubuntu-latest
-
-    # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
       
       - name: Setup Emscripten toolchain
         uses: mymindstorm/setup-emsdk@v6
-  
-  debug_build:
-    name: 'Debug Build'
-    runs-on: ubuntu-latest
-    needs: checkout_and_setup
-    steps:
       # Runs a single command using the runners shell
       - name: Build
         run: emcc maze.cpp mazeweb.cpp -o mazeweb.js -g4 -s NO_EXIT_RUNTIME=1
@@ -45,8 +36,12 @@ jobs:
   release_build:
     name: 'Release Build'
     runs-on: ubuntu-latest
-    needs: checkout_and_setup
     steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v2
+      
+      - name: Setup Emscripten toolchain
+        uses: mymindstorm/setup-emsdk@v6
       # Runs a single command using the runners shell
       - name: Build
         run: emcc maze.cpp mazeweb.cpp -o mazeweb.js -O2 -s NO_EXIT_RUNTIME=1
