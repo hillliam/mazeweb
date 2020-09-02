@@ -12,8 +12,8 @@ on:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  # This workflow contains a single job called "build"
-  build:
+  checkout_and_setup:
+    name: 'Setup'
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
 
@@ -24,7 +24,29 @@ jobs:
       
       - name: Setup Emscripten toolchain
         uses: mymindstorm/setup-emsdk@v6
-
+  
+  debug_build:
+    name: 'Debug Build'
+    runs-on: ubuntu-latest
+    needs: checkout_and_setup
+    steps:
+      # Runs a single command using the runners shell
+      - name: Build
+        run: emcc maze.cpp mazeweb.cpp -o mazeweb.js -g4 -s NO_EXIT_RUNTIME=1
+        
+      - name: Upload a Build Artifact
+        uses: actions/upload-artifact@v2.1.4
+        with:
+          # Artifact name
+          name: mazeweb_debug.js # optional, default is artifact
+          # A file, directory or wildcard pattern that describes what to upload
+          path: mazeweb.js
+          
+  release_build:
+    name: 'Release Build'
+    runs-on: ubuntu-latest
+    needs: checkout_and_setup
+    steps:
       # Runs a single command using the runners shell
       - name: Build
         run: emcc maze.cpp mazeweb.cpp -o mazeweb.js -O2 -s NO_EXIT_RUNTIME=1
@@ -35,4 +57,4 @@ jobs:
           # Artifact name
           name: mazeweb.js # optional, default is artifact
           # A file, directory or wildcard pattern that describes what to upload
-          path: mazeweb.js
+          path: mazeweb.js          
